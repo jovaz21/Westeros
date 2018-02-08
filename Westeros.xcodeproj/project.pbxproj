@@ -12,6 +12,8 @@
 		C78F59EE202CE4B500EF4182 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C78F59EC202CE4B500EF4182 /* LaunchScreen.storyboard */; };
 		C78F5A04202CF00B00EF4182 /* HouseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78F5A03202CF00B00EF4182 /* HouseTests.swift */; };
 		C78F5A06202CF1C100EF4182 /* House.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78F5A05202CF1C100EF4182 /* House.swift */; };
+		C78F5A09202CFD8500EF4182 /* PersonTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78F5A08202CFD8500EF4182 /* PersonTest.swift */; };
+		C78F5A0B202CFDFD00EF4182 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = C78F5A0A202CFDFD00EF4182 /* Person.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 		C78F59FA202CE4B500EF4182 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C78F5A03202CF00B00EF4182 /* HouseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseTests.swift; sourceTree = "<group>"; };
 		C78F5A05202CF1C100EF4182 /* House.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = House.swift; sourceTree = "<group>"; };
+		C78F5A08202CFD8500EF4182 /* PersonTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTest.swift; sourceTree = "<group>"; };
+		C78F5A0A202CFDFD00EF4182 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 			children = (
 				C78F59FA202CE4B500EF4182 /* Info.plist */,
 				C78F5A03202CF00B00EF4182 /* HouseTests.swift */,
+				C78F5A08202CFD8500EF4182 /* PersonTest.swift */,
 			);
 			path = WesterosTests;
 			sourceTree = "<group>";
@@ -97,6 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				C78F5A05202CF1C100EF4182 /* House.swift */,
+				C78F5A0A202CFDFD00EF4182 /* Person.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -203,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C78F5A0B202CFDFD00EF4182 /* Person.swift in Sources */,
 				C78F5A06202CF1C100EF4182 /* House.swift in Sources */,
 				C78F59E4202CE4B500EF4182 /* AppDelegate.swift in Sources */,
 			);
@@ -213,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C78F5A04202CF00B00EF4182 /* HouseTests.swift in Sources */,
+				C78F5A09202CFD8500EF4182 /* PersonTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,27 +9,58 @@
 import UIKit
 
 typealias Words = String
+typealias Members = Set<Person>
 
-// House
+// MARK: - House
 final class House {
     let name: String
     let sigil: Sigil
     let words: Words
     
+    private var _members: Members
+    
+    // Init
     init(name: String, sigil: Sigil, words: Words) {
         self.name = name
         self.sigil = sigil
         self.words = words
+        _members = Members()
     }
 }
 
-// Sigil
+// MARK: - House Members Stuff
+extension House {
+    var count: Int {
+        return(_members.count)
+    }
+    
+    // Add Person
+    func add(person: Person) {
+        guard person.house == self else {
+            return;
+        }
+
+        _members.insert(person)
+    }
+}
+
+// MARK: - Equatable
+extension House: Equatable {
+    static func ==(lhs: House, rhs: House) -> Bool {
+        return(lhs.name == rhs.name)
+    }
+}
+
+// MARK: - Sigil
 final class Sigil {
     let image: UIImage
     let description: String
 
+    // Init
     init(image: UIImage, description: String) {
         self.image = image
         self.description = description
     }
 }
+
+
