@@ -39,6 +39,17 @@ class HouseTests: XCTestCase {
         XCTAssertNotNil(starkHouse)
         XCTAssertNotNil(lannisterHouse)
     }
+    func testHouseEquality() {
+        // Identity
+        XCTAssertEqual(starkHouse, starkHouse)
+        
+        // Equality
+        let stark = House(name: "Stark", sigil: starkSigil, words: "Se acerca el invierno")
+        XCTAssertEqual(starkHouse, stark)
+        
+        // Unequality
+        XCTAssertNotEqual(starkHouse, lannisterHouse)
+    }
     
     // Sigil
     func testSigilInit() {

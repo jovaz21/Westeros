@@ -44,10 +44,17 @@ extension House {
     }
 }
 
+// MARK: - Proxies
+extension House {
+    var proxyForEquality: String {
+        return("\(name) \(words) \(count)")
+    }
+}
+
 // MARK: - Equatable
 extension House: Equatable {
     static func ==(lhs: House, rhs: House) -> Bool {
-        return(lhs.name == rhs.name)
+        return(lhs.proxyForEquality == rhs.proxyForEquality)
     }
 }
 
