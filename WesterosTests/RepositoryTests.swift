@@ -19,4 +19,9 @@ class RepositoryTests: XCTestCase {
         let repo = Repository.local
         XCTAssertNotNil(repo)
     }
+    func testLocalRepositoryHousesCreation() {
+        let houses = Repository.local.houses
+        XCTAssertNotNil(houses)
+        XCTAssertEqual(houses.count, 2)
+    }
 }

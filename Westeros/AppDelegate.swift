@@ -22,21 +22,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         // Models
-        //let houses = Repository.local.houses
-        
-        let starkSigil: Sigil = Sigil(image: UIImage(named: "codeIsComing.png")!, description: "Lobo Huargo")
-        let starkHouse: House = House(name: "Stark", sigil: starkSigil, words: "Se acerca el invierno")
-
-        let lannisterSigil: Sigil = Sigil(image: UIImage(named: "lannister.jpg")!, description: "Leon Rampante")
-        let lannisterHouse: House = House(name: "Lannister", sigil: lannisterSigil, words: "Oye mi rugido")
+        let houses = Repository.local.houses
 
         // Controllers
-        let starkVC = HouseDetailViewController(model: starkHouse)
-        let lannisterVC = HouseDetailViewController(model: lannisterHouse)
+        var controllers = [UINavigationController]()
+        for house in houses {
+            controllers.append(HouseDetailViewController(model: house).wrappedInNavigation())
+        }
         
         // Combinator
         let rootVC = UITabBarController();
-        rootVC.viewControllers = [starkVC.wrappedInNavigation(), lannisterVC.wrappedInNavigation()]
+        rootVC.viewControllers = controllers
         
         // Set Window Root Controller
         window?.rootViewController = rootVC
