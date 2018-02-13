@@ -45,6 +45,7 @@ class CharacterTest: XCTestCase {
         XCTAssertEqual(ned.fullName, "Eddard Stark")
     }
     func testPersonEquality() {
+        
         // Identity
         XCTAssertEqual(tyrion, tyrion)
         

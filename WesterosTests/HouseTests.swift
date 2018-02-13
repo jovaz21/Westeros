@@ -40,6 +40,7 @@ class HouseTests: XCTestCase {
         XCTAssertNotNil(lannisterHouse)
     }
     func testHouseEquality() {
+        
         // Identity
         XCTAssertEqual(starkHouse, starkHouse)
         
@@ -49,6 +50,12 @@ class HouseTests: XCTestCase {
         
         // Unequality
         XCTAssertNotEqual(starkHouse, lannisterHouse)
+    }
+    func testHouseHash() {
+        XCTAssertNotNil(starkHouse.hashValue)
+    }
+    func testHouseIsAlphabeticallyOrdered() {
+        XCTAssertLessThan(lannisterHouse, starkHouse)
     }
     
     // Sigil
