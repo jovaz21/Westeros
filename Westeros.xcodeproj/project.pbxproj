@@ -85,7 +85,6 @@
 		C78F59D7202CE4B500EF4182 = {
 			isa = PBXGroup;
 			children = (
-				C7D49F1D20323AC8004FA067 /* Controllers */,
 				C78F59E2202CE4B500EF4182 /* Westeros */,
 				C78F59F7202CE4B500EF4182 /* WesterosTests */,
 				C78F59E1202CE4B500EF4182 /* Products */,
@@ -105,12 +104,13 @@
 			isa = PBXGroup;
 			children = (
 				C78C3E4C20337C35001EDCEC /* UIKitExtensions */,
-				C7D49F1820323925004FA067 /* Assets */,
-				C78F59E3202CE4B500EF4182 /* AppDelegate.swift */,
-				C78F59EA202CE4B500EF4182 /* Assets.xcassets */,
-				C78F59EC202CE4B500EF4182 /* LaunchScreen.storyboard */,
-				C78F59EF202CE4B500EF4182 /* Info.plist */,
 				C78F5A07202CF83500EF4182 /* Model */,
+				C7D49F1D20323AC8004FA067 /* Controllers */,
+				C78F59E3202CE4B500EF4182 /* AppDelegate.swift */,
+				C7D49F1820323925004FA067 /* Assets */,
+				C78F59EC202CE4B500EF4182 /* LaunchScreen.storyboard */,
+				C78F59EA202CE4B500EF4182 /* Assets.xcassets */,
+				C78F59EF202CE4B500EF4182 /* Info.plist */,
 			);
 			path = Westeros;
 			sourceTree = "<group>";

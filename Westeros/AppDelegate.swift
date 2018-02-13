@@ -18,21 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         /* Create View */
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.backgroundColor = .cyan
+        window?.backgroundColor = .red
         window?.makeKeyAndVisible()
         
         // Models
         let houses = Repository.local.houses
-
-        // Controllers
-        var controllers = [UINavigationController]()
-        for house in houses {
-            controllers.append(HouseDetailViewController(model: house).wrappedInNavigation())
-        }
         
         // Combinator
         let rootVC = UITabBarController();
-        rootVC.viewControllers = controllers
+        rootVC.viewControllers = houses.map{ HouseDetailViewController(model: $0).wrappedInNavigation() }
         
         // Set Window Root Controller
         window?.rootViewController = rootVC
