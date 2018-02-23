@@ -14,23 +14,33 @@ class HouseTests: XCTestCase {
     // Our nil-able variables
     var starkSigil: Sigil!
     var lannisterSigil: Sigil!
+    var targaryenSigil: Sigil!
     var starkHouse: House!
     var lannisterHouse: House!
+    var targaryenHouse: House!
     var robb: Person!
     var arya: Person!
     var tyrion: Person!
+    var cersei: Person!
+    var jaime: Person!
+    var dani: Person!
 
     // Init / Halt Tests
     override func setUp() { super.setUp()
         starkSigil = Sigil(image: UIImage(), description: "Lobo Huargo")
         lannisterSigil = Sigil(image: UIImage(), description: "León rampante")
+        targaryenSigil = Sigil(image: UIImage(named: "targaryenSmall.jpg")!, description: "Dragón Tricéfalo")
         
-        starkHouse = House(name: "Stark", sigil: starkSigil, words: "Se acerca el invierno")
-        lannisterHouse = House(name: "Lannister", sigil: lannisterSigil, words: "Oye mi rugido")
+        starkHouse = House(name: "Stark", sigil: starkSigil, words: "Se acerca el invierno", url: URL(string: "http://awoiaf.westeros.org/index.php/House_Stark")!)
+        lannisterHouse = House(name: "Lannister", sigil: lannisterSigil, words: "Oye mi rugido", url: URL(string: "http://awoiaf.westeros.org/index.php/House_Lannister")!)
+        targaryenHouse = House(name: "Targaryen", sigil: targaryenSigil, words: "Fuego y Sangre", url: URL(string: "https://awoiaf.westeros.org/index.php/House_Targaryen")!)
         
         robb = Person(name: "Robb", alias: "El Joven Lobo", house: starkHouse)
         arya = Person(name: "Arya", house: starkHouse)
         tyrion = Person(name: "Tyrion", alias: "El Enano", house: lannisterHouse)
+        cersei = Person(name: "Cersei", house: lannisterHouse)
+        jaime = Person(name: "Jaime", alias: "El Matarreyes", house: lannisterHouse)
+        dani = Person(name: "Daenerys", alias: "Madre de Dragones", house: targaryenHouse)
     }
     override func tearDown() { super.tearDown() }
     
@@ -45,9 +55,9 @@ class HouseTests: XCTestCase {
         XCTAssertEqual(starkHouse, starkHouse)
         
         // Equality
-        let stark = House(name: "Stark", sigil: starkSigil, words: "Se acerca el invierno")
+        let stark = House(name: "Stark", sigil: starkSigil, words: "Se acerca el invierno", url: URL(string: "http://awoiaf.westeros.org/index.php/House_Stark")!)
         XCTAssertEqual(starkHouse, stark)
-        
+
         // Unequality
         XCTAssertNotEqual(starkHouse, lannisterHouse)
     }
@@ -56,6 +66,19 @@ class HouseTests: XCTestCase {
     }
     func testHouseIsAlphabeticallyOrdered() {
         XCTAssertLessThan(lannisterHouse, starkHouse)
+    }
+    func testHouseSortedMembers() {
+        
+        // Init
+        starkHouse.add(persons: arya, robb);
+        let sortedMembers = starkHouse.sortedMembers
+        XCTAssertNotNil(sortedMembers)
+        
+        // Order
+        let firstPerson: Person = sortedMembers.first!
+        let lastPerson: Person  = sortedMembers.last!
+        XCTAssertEqual(firstPerson.name, "Arya")
+        XCTAssertEqual(lastPerson.name, "Robb")
     }
     
     // Sigil
@@ -79,6 +102,12 @@ class HouseTests: XCTestCase {
         
         starkHouse.add(person: tyrion)
         XCTAssertEqual(starkHouse.count, 2)
+        
+        let cersei = Person(name: "Cersei", house: lannisterHouse)
+        let jaime = Person(name: "Jaime", alias: "El Matarreyes", house: lannisterHouse)
+        
+        lannisterHouse.add(persons: cersei, jaime)
+        XCTAssertEqual(lannisterHouse.count, 2)
     }
 }
 

@@ -10,12 +10,12 @@ import Foundation
 
 // Person
 final class Person {
-    let name: String
-    let house: House
-    var alias: String { return(_alias ?? "") }
+    weak var    house:  House!
+    let         name:   String
+    var         alias:  String { return(_alias ?? "") }
 
     private let _alias: String?
-    
+
     // Init
     init(name: String, alias: String? = nil, house: House) {
         self.name = name
@@ -32,15 +32,25 @@ extension Person {
 
 // MARK: - Proxies
 extension Person {
-    var proxy: String {
+    var proxyForEquality: String {
         return("\(name) \(alias) \(house.name)")
+    }
+    var proxyForComparison: String {
+        return(fullName.uppercased())
+    }
+}
+
+// MARK: - Comparable
+extension Person: Comparable {
+    static func <(lhs: Person, rhs: Person) -> Bool {
+        return(lhs.proxyForComparison < rhs.proxyForComparison)
     }
 }
 
 // MARK: - Hashable
 extension Person: Hashable {
     var hashValue: Int {
-        return(proxy.hashValue)
+        return(proxyForEquality.hashValue)
     }
 }
 

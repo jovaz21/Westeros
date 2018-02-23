@@ -18,18 +18,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         /* Create View */
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.backgroundColor = .red
         window?.makeKeyAndVisible()
         
         // Models
-        let houses = Repository.local.houses
+        let houses      = Repository.local.houses
+        let seasons     = Repository.local.seasons
+        //let episodes    = seasons.first!.sortedEpisodes
         
         // Combinator
-        let rootVC = UITabBarController();
-        rootVC.viewControllers = houses.map{ HouseDetailViewController(model: $0).wrappedInNavigation() }
+        let houseListVC     = HouseListViewController(houses: houses)
+        let houseDetailVC   = HouseDetailViewController(model: houseListVC.lastSelectedHouse)
+        
+        // Delegators
+        houseListVC.delegate = houseDetailVC
+        
+        
+        let seasonListVC    = SeasonListViewController(seasons: seasons).wrappedInNavigation()
+        //let episodeListVC   = EpisodeListViewController(episodes: episodes).wrappedInNavigation()
+        
+        //let tabBarController = UITabBarController();
+        //tabBarController.viewControllers = [houseListVC, seasonListVC]
+        
+        let splitVC = UISplitViewController()
+        splitVC.viewControllers = [houseListVC.wrappedInNavigation(), houseDetailVC.wrappedInNavigation()]
         
         // Set Window Root Controller
-        window?.rootViewController = rootVC
+        window?.rootViewController = splitVC
+        print("!!!!!!!!!!!!", splitVC.isCollapsed);
         
         /* done */
         return true
