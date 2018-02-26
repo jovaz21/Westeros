@@ -1,19 +1,19 @@
 //
-//  EpisodeDetailViewController.swift
+//  MemberDetailViewController.swift
 //  Westeros
 //
-//  Created by ATEmobile on 18/2/18.
+//  Created by ATEmobile on 24/2/18.
 //  Copyright © 2018 ATEmobile. All rights reserved.
 //
 
 import UIKit
 
 // MARK: - Controller Stuff
-class EpisodeDetailViewController: UIViewController {
-    let model: Episode
+class MemberDetailViewController: UIViewController {
+    let model: Person
     
     // MARK: - Init
-    init(model: Episode) {
+    init(model: Person) {
         
         /* set */
         self.model = model
@@ -31,17 +31,17 @@ class EpisodeDetailViewController: UIViewController {
     }
     
     // View Will Appear:
-    //  - Adds Observer to SeasonListViewController's SEASONDIDCHANGE_NOTIFICATION
+    //  - Adds Observer to HouseListViewController's HOUSEDIDCHANGE_NOTIFICATION
     //  - Paint UIView
     override func viewWillAppear(_ animated: Bool) { super.viewWillAppear(animated)
-
+        
         // Add Observer
-        NotificationCenter.default.addObserver(self, selector: #selector(seasonDidChange), name: SeasonListViewController.SEASONDIDCHANGE_NOTIFICATION, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(houseDidChange), name: HouseListViewController.HOUSEDIDCHANGE_NOTIFICATION, object: nil)
         
         // Paint UIView
         self.paintUIView()
     }
-    @objc func seasonDidChange(notification: Notification) {
+    @objc func houseDidChange(notification: Notification) {
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -52,35 +52,39 @@ class EpisodeDetailViewController: UIViewController {
     }
     
     // MARK: - Outlets for View Stuff
-    @IBOutlet weak var episodeNameLabel: UILabel!
-    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var personNameLabel: UILabel!
+    @IBOutlet weak var aliasLabel: UILabel!
     
     // Paint UIView
     //  - Map Model Properties with View Data
     //  - Set UIView Data
     func paintUIView() {
-        self.setUIViewData(EpisodeViewData(episodeName: model.name,
-                                           date:        model.date))
+        self.setUIViewData(PersonViewData(name:   model.name,
+                                          alias:  model.alias))
     }
 }
 
 // MARK: - View Stuff
-struct EpisodeViewData {
-    let episodeName:    String
-    let date:           Date
-    var formattedDate:  String { return(date.toString()) }
-    var text:           String { return("\(episodeName) (\(formattedDate))") }
+extension PersonViewData {
+    var formattedAlias: String {
+        
+        /* check */
+        if (alias == "") {
+            return("")
+        }
+        return("(\(alias))")
+    }
 }
-extension EpisodeDetailViewController {
+extension MemberDetailViewController {
     
     // Setup UIView
     func setupUIView() { }
     
     // Set UIView Data
     //  - Formats the Date Label
-    //  - Makes UIView Display: episodeName and formatted date
-    func setUIViewData(_ data: EpisodeViewData) {
-        episodeNameLabel.text = data.episodeName
-        dateLabel.text        = "(( \(data.formattedDate) ))"
+    //  - Makes UIView Display: personName and formatted alias
+    func setUIViewData(_ data: PersonViewData) {
+        personNameLabel.text  = data.name
+        aliasLabel.text       = data.formattedAlias
     }
 }

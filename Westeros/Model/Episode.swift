@@ -20,11 +20,7 @@ final class Episode {
         /* set */
         self.season = season
         self.name   = name
-        
-        /* set */
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
-        self.date = dateFormatter.date(from: dateStr)!
+        self.date   = Date.fromString(dateStr)!
         
         /* check */
         if (season != nil) {
@@ -35,12 +31,8 @@ final class Episode {
 
 // MARK: - Proxies
 extension Episode {
-    var proxyForEquality: String {
-        return("\(name) \(date)")
-    }
-    var proxyForComparison: String {
-        return(name.uppercased())
-    }
+    var proxyForEquality:   String { return("\(name) \(date)") }
+    var proxyForComparison: String { return(name.uppercased()) }
 }
 
 // MARK: - Comparable
@@ -52,9 +44,7 @@ extension Episode: Comparable {
 
 // MARK: - Hashable
 extension Episode: Hashable {
-    var hashValue: Int {
-        return(proxyForEquality.hashValue)
-    }
+    var hashValue: Int { return(proxyForEquality.hashValue) }
 }
 
 // MARK: - Equatable
@@ -67,9 +57,7 @@ extension Episode: Equatable {
 // MARK: - CustomStringConvertible
 extension Episode: CustomStringConvertible {
     var description: String {
-        let dateFormatter = ISO8601DateFormatter()
-            dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
-        let dateStr = dateFormatter.string(from: date)
+        let dateStr = date.toString()
         
         /* check */
         if (season == nil) {

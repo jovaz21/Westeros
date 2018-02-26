@@ -10,9 +10,7 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
@@ -20,31 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
         
-        // Models
-        let houses      = Repository.local.houses
-        let seasons     = Repository.local.seasons
-        //let episodes    = seasons.first!.sortedEpisodes
-        
-        // Combinator
-        let houseListVC     = HouseListViewController(houses: houses)
-        let houseDetailVC   = HouseDetailViewController(model: houseListVC.lastSelectedHouse)
-        
-        // Delegators
-        houseListVC.delegate = houseDetailVC
-        
-        
-        let seasonListVC    = SeasonListViewController(seasons: seasons).wrappedInNavigation()
-        //let episodeListVC   = EpisodeListViewController(episodes: episodes).wrappedInNavigation()
-        
-        //let tabBarController = UITabBarController();
-        //tabBarController.viewControllers = [houseListVC, seasonListVC]
-        
-        let splitVC = UISplitViewController()
-        splitVC.viewControllers = [houseListVC.wrappedInNavigation(), houseDetailVC.wrappedInNavigation()]
-        
         // Set Window Root Controller
-        window?.rootViewController = splitVC
-        print("!!!!!!!!!!!!", splitVC.isCollapsed);
+        window?.rootViewController = WesterosViewController()
         
         /* done */
         return true

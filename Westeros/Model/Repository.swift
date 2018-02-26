@@ -8,26 +8,36 @@
 
 import UIKit
 
-final class Repository {
-    static let local: WesterosModelFactory = LocalFactory()
-    private init() {}
-}
-
+// MARK: - Convenience Data Type for Tests (RESPUESTA A LA PREGUNTA Nº8)
 enum HouseName: String {
     case Stark
     case Lannister
     case Targaryen
 }
+
+// MARK: - The Repository
+final class Repository {
+    static let local: WesterosModelFactory = LocalFactory()
+    private init() {}
+}
+
+// MARK: - Westeros Model Factory
 protocol WesterosModelFactory {
+    
+    // Filter Type
     typealias Filter<Entity> = (Entity) -> Bool
 
+    // Seasons Getter + Filter
     var seasons: [Season] { get }
     func seasons(filteredBy: Filter<Season>) -> [Season]
 
+    // Houses Getter + Filter
     var houses: [House] { get }
-    func house1(named: String) -> House?
-    func house(named: HouseName) -> House? // RESPUESTA A LA 8!!!
     func houses(filteredBy: Filter<House>) -> [House]
+
+    // House Retriever
+    func house(named: String)       -> House?
+    func house(named: HouseName)    -> House? // RESPUESTA A LA PREFGUNTA Nº8!!!
 }
 
 final class LocalFactory: WesterosModelFactory {
@@ -100,7 +110,7 @@ final class LocalFactory: WesterosModelFactory {
         return([starkHouse, lannisterHouse, targaryenHouse].sorted())
     }
     
-    func house1(named name: String) -> House? {
+    func house(named name: String) -> House? {
         let house = houses.filter{ $0.name.uppercased() == name.uppercased() }.first
         return(house)
     }

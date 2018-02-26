@@ -31,7 +31,7 @@ class HouseDetailViewController: UIViewController {
     }
     
     // View Will Appear:
-    // Makes UIView Paint HouseViewData
+    // Paint UIView
     override func viewWillAppear(_ animated: Bool) { super.viewWillAppear(animated)
         self.paintUIView()
     }
@@ -62,9 +62,9 @@ class HouseDetailViewController: UIViewController {
     @IBOutlet weak var sigilImageView: UIImageView!
     @IBOutlet weak var wordsLabel: UILabel!
     
-    // Set UIView Data
+    // Paint UIView
     //  - Map Model Properties with View Data
-    //  - Set UIViewData
+    //  - Set UIView Data
     func paintUIView() {
         self.setUIViewData(HouseViewData(houseName:     model.name,
                                          sigilImage:    model.sigil.image,
@@ -86,12 +86,11 @@ extension HouseDetailViewController {
     func setupUIView() {
         
         /* create */
-        let wikiButton = UIBarButtonItem(title: "Wiki", style: .plain, target: self, action: #selector(wikiButtonAction)) // Self: Donde esta la accion, #selector: La acción
-        let membersButton = UIBarButtonItem(title: "Members", style: .plain, target: self, action: #selector(membersButtonAction)) // Self: Donde esta la accion, #selector: La acción
+        let wikiButton = UIBarButtonItem(title: "Wiki", style: .plain, target: self, action: #selector(wikiButtonAction))
+        let membersButton = UIBarButtonItem(title: "Members", style: .plain, target: self, action: #selector(membersButtonAction))
         
         /* set */
         navigationItem.rightBarButtonItems = [wikiButton, membersButton]
-
     }
     @objc func wikiButtonAction() { DispatchQueue.main.asyncAfter(deadline: .now() + 0.025, execute: {
         self.onDisplayWiki()
@@ -102,7 +101,7 @@ extension HouseDetailViewController {
     
     // Set UIView Data:
     //  - Formats the House Name Literal
-    //  - Makes UIView display: houseName, sigilImage and words
+    //  - Makes UIView Display: houseName, sigilImage and words
     func setUIViewData(_ data: HouseViewData) {
         houseNameLabel.text     = "Casa \(data.houseName)"
         sigilImageView.image    = data.sigilImage
@@ -112,7 +111,7 @@ extension HouseDetailViewController {
 
 // MARK: - HouseListViewControllerDelegate
 extension HouseDetailViewController: HouseListViewControllerDelegate {
-    func houseListViewController(_ vc: HouseListViewController, didSelectHouse house: House) {
+    func houseListViewController(_ houseListVC: HouseListViewController, didSelectHouse house: House) {
         
         /* set */
         self.model = house
@@ -121,8 +120,8 @@ extension HouseDetailViewController: HouseListViewControllerDelegate {
         self.title = house.name
         
         /* check */
-        if (vc.splitViewController!.isCollapsed) {
-            vc.showDetailViewController(self, sender: vc)
+        if (houseListVC.splitViewController!.isCollapsed) {
+            houseListVC.showDetailViewController(self, sender: houseListVC)
         }
         else {
             
@@ -130,8 +129,8 @@ extension HouseDetailViewController: HouseListViewControllerDelegate {
             paintUIView()
             
             /* check */
-            if (vc.splitViewController!.displayMode == .primaryOverlay) {
-                vc.splitViewController?.preferredDisplayMode = .primaryHidden
+            if (houseListVC.splitViewController!.displayMode == .primaryOverlay) {
+                houseListVC.splitViewController?.preferredDisplayMode = .primaryHidden
             }
         }
         

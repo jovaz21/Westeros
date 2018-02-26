@@ -69,6 +69,7 @@ class SeasonTests: XCTestCase {
         XCTAssertEqual(lastEpisode.name, "Episode6")
     }
     func testSeasonDescription() {
+        print("!!!!", season1.description);
         XCTAssertEqual(season1.description, "Temporada1 - 2016-12-31 (\(season1.count))")
     }
     

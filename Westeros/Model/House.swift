@@ -17,50 +17,49 @@ final class House {
     let sigil: Sigil
     let words: Words
     let wikiURL: URL
+    
     private var _members: Members
     
     // Init
     init(name: String, sigil: Sigil, words: Words, url: URL) {
-        self.name = name
-        self.sigil = sigil
-        self.words = words
-        self.wikiURL = url
+        
+        /* set */
+        self.name       = name
+        self.sigil      = sigil
+        self.words      = words
+        self.wikiURL    = url
+        
+        /* set */
         _members = Members()
     }
 }
 
 // MARK: - House Members Stuff
 extension House {
-    var count: Int {
-        return(_members.count)
-    }
-    var sortedMembers: [Person] {
-        return(_members.sorted())
-    }
+    var count:          Int         { return(_members.count) }
+    var sortedMembers:  [Person]    { return(_members.sorted()) }
     
     // Add Person
     func add(person: Person) {
-        guard person.house == self else {
+        guard ((person.house == nil) || (person.house == self)) else {
             return;
         }
-
+        
+        /* set */
+        person.house = self
+        
+        /* insert */
         _members.insert(person)
     }
     
     // Add Persons
-    func add(persons: Person...) {
-        persons.forEach { add(person: $0) }
-    }
+    func add(persons: Person...) { persons.forEach { add(person: $0) } }
 }
 
 // MARK: - Proxies
 extension House {
-    var proxyForEquality: String {
-        return("\(name) \(words) \(count)")
-    }
-    var proxyForComparison: String {
-        return(name.uppercased())
-    }
+    var proxyForEquality:   String { return("\(name) \(words) \(count)") }
+    var proxyForComparison: String { return(name.uppercased()) }
 }
 
 // MARK: - Comparable
@@ -72,9 +71,7 @@ extension House: Comparable {
 
 // MARK: - Hashable
 extension House: Hashable {
-    var hashValue: Int {
-        return(proxyForEquality.hashValue)
-    }
+    var hashValue: Int { return(proxyForEquality.hashValue) }
 }
 
 // MARK: - Equatable
@@ -91,9 +88,7 @@ final class Sigil {
 
     // Init
     init(image: UIImage, description: String) {
-        self.image = image
-        self.description = description
+        self.image          = image
+        self.description    = description
     }
 }
-
-

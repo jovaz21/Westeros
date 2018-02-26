@@ -17,27 +17,29 @@ final class Person {
     private let _alias: String?
 
     // Init
-    init(name: String, alias: String? = nil, house: House) {
-        self.name = name
-        self.house = house
+    init(name: String, alias: String? = nil, house: House? = nil) {
+        
+        /* set */
+        self.name   = name
+        self.house  = house
+        
+        /* set */
         _alias = alias
+        
+        /* check */
+        if (house != nil) {
+            house!.add(person: self)
+        }
     }
 }
-
 extension Person {
-    var fullName: String {
-        return("\(name) \(house.name)");
-    }
+    var fullName: String { return("\(name) \(house.name)"); }
 }
 
 // MARK: - Proxies
 extension Person {
-    var proxyForEquality: String {
-        return("\(name) \(alias) \(house.name)")
-    }
-    var proxyForComparison: String {
-        return(fullName.uppercased())
-    }
+    var proxyForEquality:   String { return("\(name) \(alias) \(house.name)") }
+    var proxyForComparison: String { return(fullName.uppercased()) }
 }
 
 // MARK: - Comparable
@@ -49,9 +51,7 @@ extension Person: Comparable {
 
 // MARK: - Hashable
 extension Person: Hashable {
-    var hashValue: Int {
-        return(proxyForEquality.hashValue)
-    }
+    var hashValue: Int { return(proxyForEquality.hashValue) }
 }
 
 // MARK: - Equatable
@@ -60,11 +60,3 @@ extension Person: Equatable {
         return(lhs.hashValue == rhs.hashValue)
     }
 }
-
-
-
-
-
-
-
-

@@ -8,13 +8,25 @@
 
 import Foundation
 
-// Init From Formatted String
+// Date + Strings
 extension Date {
-    init(fromDateString dateString: String, withFormat format: String) {
-        let dateStringFormatter = DateFormatter()
-        dateStringFormatter.dateFormat = "yyyyy-MM-dd"
-        dateStringFormatter.locale = Locale(identifier: "En_US_POSIX")
-        let d = dateStringFormatter.date(from: dateString)
-        self.init(timeInterval: 0, since: d!)
+    
+    // From String
+    static func fromString(_ dateString: String, withFormat format: String) -> Date? {
+        let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = format
+        return(dateFormatter.date(from: dateString))
+    }
+    static func fromString(_ dateString: String) -> Date? {
+        let dateFormatter = ISO8601DateFormatter()
+            dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+        return(dateFormatter.date(from: dateString))
+    }
+    
+    // To String
+    func toString() -> String {
+        let dateFormatter = ISO8601DateFormatter()
+            dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
+        return(dateFormatter.string(from: self))
     }
 }

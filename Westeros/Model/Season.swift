@@ -6,13 +6,6 @@
 //  Copyright © 2018 ATEmobile. All rights reserved.
 //
 
-/*
-season = Season(name: "Temporada1", startDate: "01/01/2016")
-for i in 1...20 {
-    season.add(Episode(name: "Episodio \(i)"))
-}
- */
-
 import Foundation
 
 typealias Episodes = Set<Episode>
@@ -25,36 +18,36 @@ final class Season {
     
     // Init
     init(name: String, startDate startDateStr: String) {
-        self.name = name
-        let dateFormatter = ISO8601DateFormatter()
-            dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
-        self.startDate = dateFormatter.date(from: startDateStr)!
+        
+        /* set */
+        self.name       = name
+        self.startDate  = Date.fromString(startDateStr)!
+        
+        /* set */
         _episodes = Episodes()
     }
 }
 
 // MARK: - Season Episodes Stuff
 extension Season {
-    var count: Int {
-        return(_episodes.count)
-    }
-    var sortedEpisodes: [Episode] {
-        return(_episodes.sorted().map{ return($0) })
-    }
+    var count:          Int         { return(_episodes.count) }
+    var sortedEpisodes: [Episode]   { return(_episodes.sorted()) }
     
     // Add Episode
     func add(episode: Episode) {
         guard ((episode.season == nil) || (episode.season == self)) else {
             return;
         }
+        
+        /* set */
         episode.season = self
+        
+        /* insert */
         _episodes.insert(episode)
     }
     
     // Add Episodes
-    func add(episodes: Episode...) {
-        episodes.forEach { add(episode: $0) }
-    }
+    func add(episodes: Episode...) { episodes.forEach { add(episode: $0) } }
 }
 
 // MARK: - Proxies
@@ -91,9 +84,7 @@ extension Season: Equatable {
 // MARK: - CustomStringConvertible
 extension Season: CustomStringConvertible {
     var description: String {
-        let dateFormatter = ISO8601DateFormatter()
-        dateFormatter.formatOptions = [.withFullDate, .withDashSeparatorInDate]
-        let startDateStr = dateFormatter.string(from: startDate)
+        let startDateStr = startDate.toString()
         
         /* done */
         return("\(name) - \(startDateStr) (\(count))")

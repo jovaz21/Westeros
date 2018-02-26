@@ -10,7 +10,9 @@ import UIKit
 
 // MARK: - Controller Stuff
 class MemberListViewController: UITableViewController {
-    let members: [Person]
+    
+    // MARK: - Properties
+    var members: [Person]
     
     // MARK: - Init
     init(members: [Person]) {
@@ -23,6 +25,52 @@ class MemberListViewController: UITableViewController {
         title = "Miembros"
     }
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
+    // View Will Appear
+    // Adds Observer to HouseListViewController's HOUSEDIDCHANGE_NOTIFICATION
+    override func viewWillAppear(_ animated: Bool) { super.viewWillAppear(animated)
+        
+        // Add Observer
+        NotificationCenter.default.addObserver(self, selector: #selector(houseDidChange), name: HouseListViewController.HOUSEDIDCHANGE_NOTIFICATION, object: nil)
+    }
+    @objc func houseDidChange(notification: Notification) {
+        
+        /* check */
+        guard let userInfo = notification.userInfo else {
+            return
+        }
+        
+        /* set */
+        let newHouse = userInfo[HouseListViewController.HOUSE_KEY] as! House
+        
+        /* set */
+        self.members = newHouse.sortedMembers
+        
+        /* set */
+        tableView.reloadData()
+    }
+    
+    // View Will Disappear:
+    //  - Set BackButton Title to 'Atrás'
+    //  - Remove Observer if Out of NavigationController's Navigation Stack
+    override func viewWillDisappear(_ animated: Bool) { super.viewWillAppear(animated)
+        
+        /* set */
+        let backButton = UIBarButtonItem(title: "Atrás", style: .plain, target: self, action: nil)
+        self.navigationItem.backBarButtonItem = backButton
+        
+        /* check */
+        if (!(self.navigationController?.viewControllers.contains(self))!) {
+            NotificationCenter.default.removeObserver(self)
+        }
+    }
+    
+    // On Row Selected:
+    // Makes NavigationController Push a Newly Created MemberDetailViewController
+    func onRowSelected(at indexPath: IndexPath) {
+        let memberDetailVC = MemberDetailViewController(model: members[indexPath.row])
+        navigationController?.pushViewController(memberDetailVC, animated: true)
+    }
 }
 
 // MARK: - View Stuff
@@ -72,5 +120,8 @@ extension MemberListViewController {
         
         /* set */
         cell.textLabel?.text = person.text
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.onRowSelected(at: indexPath)
     }
 }
